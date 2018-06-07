@@ -16,12 +16,12 @@ router.get('/:id([0-9]{3,})', function(req, res){
    if(currMovie.length == 1){
       res.json(currMovie[0])
    } else {
-      res.status(404);  //Set status to 404 as movie was not found
+      res.status(404);
       res.json({message: "Not Found"});
    }
 });
 router.post('/', function(req, res){
-   //Check if all fields are provided and are valid:
+
    if(!req.body.name ||
       !req.body.year.toString().match(/^[0-9]{4}$/g) ||
       !req.body.rating.toString().match(/^[0-9]\.[0-9]$/g)){
