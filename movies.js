@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var checkToken =require('./middleware');
 var movies = [
    {id: 101, name: "Fight Club", year: 1999, rating: 8.1},
    {id: 102, name: "Inception", year: 2010, rating: 8.7},
    {id: 103, name: "The Dark Knight", year: 2008, rating: 9},
    {id: 104, name: "12 Angry Men", year: 1957, rating: 8.9}
 ];
-router.get('/:id([0-9]{3,})', function(req, res){
+router.get('/:id([0-9]{3,})',checkToken.jwtCheck, function(req, res){
    var currMovie = movies.filter(function(movie){
+     
       if(movie.id == req.params.id){
+            console.log(movie.rating);
          return true;
       }
    });
@@ -20,7 +23,7 @@ router.get('/:id([0-9]{3,})', function(req, res){
       res.json({message: "Not Found"});
    }
 });
-router.post('/', function(req, res){
+router.post('/',checkToken.jwtCheck, function(req, res){
 
    if(!req.body.name ||
       !req.body.year.toString().match(/^[0-9]{4}$/g) ||
