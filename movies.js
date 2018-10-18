@@ -9,7 +9,7 @@ var movies = [
 ];
 router.get('/:id([0-9]{3,})',checkToken.jwtCheck, function(req, res){
    var currMovie = movies.filter(function(movie){
-     
+
       if(movie.id == req.params.id){
             console.log(movie.rating);
          return true;
@@ -18,7 +18,7 @@ router.get('/:id([0-9]{3,})',checkToken.jwtCheck, function(req, res){
 
    if(currMovie.length == 1){
       res.json(currMovie[0])
-   } else {
+   } else { 
       res.status(404);
       res.json({message: "Not Found"});
    }
